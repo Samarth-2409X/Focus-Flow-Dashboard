@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
 
-// ─── Context ────────────────────────────────────────────────────────────────
 const SettingsContext = createContext();
 
 function SettingsProvider({ children }) {
@@ -12,7 +11,6 @@ function SettingsProvider({ children }) {
   );
 }
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
 function getGreeting() {
   const h = new Date().getHours();
   if (h < 12) return { label: "Good Morning", icon: "☀️", sub: "Start your day with intent." };
@@ -29,7 +27,6 @@ function fmt(s) {
 
 const TOTAL = 25 * 60;
 
-// ─── Theme tokens ────────────────────────────────────────────────────────────
 const themes = {
   normal: {
     "--bg": "#0d0f14",
@@ -56,8 +53,6 @@ const themes = {
     "--ring": "rgba(255,230,0,0.5)",
   },
 };
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
 
 function GreetingCard() {
   const { isHighContrast } = useContext(SettingsContext);
@@ -181,7 +176,6 @@ function FocusTimer() {
   const [sessionCount, setSessionCount] = useState(0);
   const intervalRef = useRef(null);
 
-  // Effect 1: Timer interval with cleanup
   useEffect(() => {
     if (isActive) {
       intervalRef.current = setInterval(() => {
@@ -201,7 +195,6 @@ function FocusTimer() {
     return () => clearInterval(intervalRef.current);
   }, [isActive]);
 
-  // Effect 2: Document title
   useEffect(() => {
     if (isActive) {
       document.title = `(${fmt(seconds)}) Focus!`;
@@ -210,7 +203,6 @@ function FocusTimer() {
     }
   }, [seconds, isActive]);
 
-  // Effect 3: Session logger
   useEffect(() => {
     if (sessionCount > 0) {
       console.log(`[API Save] Session #${sessionCount} complete at ${new Date().toISOString()}`);
@@ -240,7 +232,6 @@ function FocusTimer() {
         FOCUS SESSION
       </div>
 
-      {/* Ring */}
       <div style={{ position: "relative", width: 210, height: 210 }}>
         <svg width="210" height="210" style={{ transform: "rotate(-90deg)" }}>
           <circle cx="105" cy="105" r={r} fill="none" stroke="var(--bg3)" strokeWidth="10" />
@@ -272,7 +263,6 @@ function FocusTimer() {
         </div>
       </div>
 
-      {/* Buttons */}
       <div style={{ display: "flex", gap: 12 }}>
         <button onClick={handleToggle} style={{
           padding: "12px 32px",
@@ -309,7 +299,6 @@ function FocusTimer() {
   );
 }
 
-// ─── App ─────────────────────────────────────────────────────────────────────
 function Dashboard() {
   const { isHighContrast } = useContext(SettingsContext);
   const t = isHighContrast ? themes.hc : themes.normal;
@@ -328,14 +317,12 @@ function Dashboard() {
       padding: "48px 20px",
       transition: "background 0.3s, color 0.3s",
     }}>
-      {/* Import fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--bg); }
       `}</style>
 
-      {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 40 }}>
         <div style={{ fontSize: 13, letterSpacing: 4, color: "var(--muted)", textTransform: "uppercase", marginBottom: 8 }}>
           productivity
@@ -348,11 +335,10 @@ function Dashboard() {
           letterSpacing: "-1px",
           lineHeight: 1,
         }}>
-          Focus &amp; Flow
+          Focus & Flow
         </h1>
       </div>
 
-      {/* Main grid */}
       <div style={{
         width: "100%",
         maxWidth: 720,
@@ -360,7 +346,6 @@ function Dashboard() {
         gridTemplateColumns: "1fr 1fr",
         gap: 16,
       }}>
-        {/* Left column */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <GreetingCard />
           <ContrastToggle />
@@ -381,7 +366,6 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Right column */}
         <FocusTimer />
       </div>
 
