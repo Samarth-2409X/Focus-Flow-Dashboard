@@ -1,0 +1,26 @@
+export const themes = {
+  normal: {
+    "--bg": "#0d0f14",
+    "--bg2": "#13161e",
+    "--bg3": "#1c2030",
+    "--border": "rgba(255,255,255,0.07)",
+    "--text": "#e8eaf2",
+    "--muted": "#6b7280",
+    "--accent": "#6ee7b7",
+    "--accent2": "#818cf8",
+    "--danger": "#f87171",
+    "--ring": "rgba(110,231,183,0.35)",
+  },
+  hc: {
+    "--bg": "#000000",
+    "--bg2": "#0a0a0a",
+    "--bg3": "#111111",
+    "--border": "#ffe600",
+    "--text": "#ffe600",
+    "--muted": "#ccbb00",
+    "--accent": "#ffe600",
+    "--accent2": "#ffe600",
+    "--danger": "#ff4444",
+    "--ring": "rgba(255,230,0,0.5)",
+  },
+};
